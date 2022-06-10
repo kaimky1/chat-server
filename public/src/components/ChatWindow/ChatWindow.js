@@ -52,6 +52,7 @@ export default class ChatWindow extends Component {
 
   removeMessage( id ) {
     axios.delete( url + `/${id}` ).then( response => {
+      console.log(response)
       this.setState({ messages: response.data });
     });
   }

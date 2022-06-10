@@ -18,17 +18,28 @@ module.exports = {
   },
 
   updateMessage: (req, res) => {
-      const {id} = req.params;
+
       const {text} = req.body;
-      const updateID = id;
+      const updateID = req.params.id;
 
       const indexFound = messages.findIndex(message => message.id == updateID)
       let message = messages[indexFound]
 
-      messages[messageIndex] = {
+      messages[indexFound] = {
           id: message.id,
-          text: text,
+          text: text || message.text,
           time: message.time
-      }
+      };
+      res.status(200).send(messages);
+  },
+  deleteMessage: (req, res) => {
+    const updateID = req.params.id;
+
+    const indexFound = messages.findIndex(message => message.id == updateID)
+
+    messages.splice(indexFound, 1)
+
+    res.status(200).send(messages)
   }
+  
 };
